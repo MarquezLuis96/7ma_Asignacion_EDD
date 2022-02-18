@@ -1,3 +1,9 @@
+#Others
+./Big-O_Notation/.vs
+./Big-O_Notation/Debug
+*.opendb
+*.db
+
 # Prerequisites
 *.d
 
