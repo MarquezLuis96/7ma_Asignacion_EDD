@@ -42,26 +42,30 @@ string capitalize(string str) {
 }
 
 /*	Esta función se encarga de confirmar si el string recibido es palindrome o no
+*	
+*	La complejidad de este algoritmo es de O(n/2) ya que el ciclo se repite la mitad
+* de veces de cuantas letras tenga la palabra.
+* 
 */
 bool palindromeCheck(string str) {
 	/*	Se recorre la mitad de la longitud del arreglo ya que se busca reducir la cantidad de iteraciones
 	* con la ayuda de una variable 'last', la cual estará siendo utilizada para acceder a la posición n-i-1
 	* del arreglo, recorriendo a la vez de forma ascendente y descendente el mismo.
 	*/
-	for (unsigned int i = 0; i < str.length() / 2; i++) {
-		int last = str.length() - i - 1;
-		if (str[i] == str[last]) {
+	for (unsigned int i = 0; i < str.length() / 2; i++) {	// O(n/2)
+		int last = str.length() - i - 1;					// O(1)
+		if (str[i] == str[last]) {							// O(1)
 			//Pasa a la siguiente iteración
-			continue;
+			continue;										// O(1)
 		}
-		else {
+		else {												// O(1)
 			//La palabra no es palindroma
-			return false;
+			return false;									// O(1)
 		}
 	}
 
 	//La palabra es palindroma
-	return true;
+	return true;											// O(1)
 }
 
 /* Esta función se encarga de llamar a todas las operaciones para comprobar si un string
@@ -128,38 +132,44 @@ struct occurrence {
 /* Esta función es la encargada de contar todas las ocurrencias de un caracter (letra o número)
 * recibe como parámetros un string word que será la palabra a la que se le cuenten las ocurrencias
 * y recibe un arreglo de la estructura occurrence, que es donde se almacenarán las letras y las ocurrencias correspondientes
+* 
+* El orden de este algoritmo es O(n^2) ya que siempre se pasa por el ciclo for de la línea 144 n veces
+* El ciclo do-while de la línea 153 en el peor de los casos (que todas las letras sean distintas) se ejecuta n veces
+* 
+* teniendo en cuenta esto se puede decir que el algoritmo es de complejidad O(n^2)
+* 
 */
 void countOccurrences(string word, occurrence letras[]) {
 	//Se utiliza este ciclo para recorrer cada posición dentro de la palabra
-	for (unsigned int i = 0; i < word.length(); i++) {
+	for (unsigned int i = 0; i < word.length(); i++) {																	//O(n)
 		//Se declara la variable pos, la cuál ayudará a movernos en la posición del arreglo letras
-		int pos = 0;
+		int pos = 0;																									//O(1)
 
 		/* Con el siguiente ciclo do-while estaremos desplazándonos entre las posiciones del arreglo letras
 		* la condición del while es true ya que así nos ahorramos el declarar una variable bandera y además
 		* de que las sentencias dentro del mismo bucle do-while indican cuando salirse del ciclo.
 		* (Cuando se agregue una nueva letra y cuando se incremente el contador de alguna letra)
 		*/
-		do {
-			if (letras[pos].getLetra() == ' ') {
+		do {																											//O(n)
+			if (letras[pos].getLetra() == ' ') {																		//O(1)
 				/* Se entrará acá si el espacio dentro del arreglo está en blanco, es decir, no se halló la letra de
 				* la palabra y se procede a agregarla
 				*/
-				letras[pos].setLetra(word[i]);
-				break;
+				letras[pos].setLetra(word[i]);																			//O(1)
+				break;																									//O(1)
 			}
-			else {
-				if (word[i] == letras[pos].getLetra()) {
+			else {																										//O(1)
+				if (word[i] == letras[pos].getLetra()) {																//O(1)
 					/* Se entrará acá si se halló una nueva ocurrencia y se incrementará el contador para dicha letra
 					*/
-					letras[pos].incrementVeces();
-					break;
+					letras[pos].incrementVeces();																		//O(1)
+					break;																								//O(1)
 				}
-				else {
+				else {																									//O(1)
 					/* Se entrará acá cuando no se haya encontrado una nueva ocurrencia y la posición actual del arreglo letras
 					* sea diferente a espacio en blanco
 					*/
-					pos++;
+					pos++;																								//O(1)
 				}
 			}
 		} while (true);
